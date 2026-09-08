@@ -1,0 +1,139 @@
+@property --beam {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+:root {
+  --mx: -40vmax;
+  --my: -40vmax;
+  --beam: 0px;
+  --pic-w: 640px;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #000;
+  color: #000;
+  min-height: 100%;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  cursor: none;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: var(--pic-w);
+  background: #000;
+}
+
+.panel {
+  display: grid;
+  place-items: center;
+  width: var(--pic-w);
+  background: #000;
+}
+
+img {
+  display: block;
+  box-sizing: content-box;
+  width: 640px;
+  min-width: 640px;
+  max-width: 640px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  aspect-ratio: 1333 / 2000;
+  pointer-events: none;
+  user-select: none;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 40;
+  padding: 0.6rem 0.9rem;
+  background: #f4efe4;
+  color: #111;
+  text-decoration: none;
+  font: 600 0.85rem/1 system-ui, sans-serif;
+  translate: 0 -140%;
+}
+
+.skip:focus {
+  translate: 0 1rem;
+}
+
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: #000;
+}
+
+body.is-lit .veil {
+  --beam: 12.5rem;
+  background: radial-gradient(
+    circle var(--beam) at var(--mx) var(--my),
+    transparent 0%,
+    transparent 18%,
+    rgb(0 0 0 / 0.28) 42%,
+    rgb(0 0 0 / 0.82) 64%,
+    #000 78%
+  );
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: #fff6d5;
+  box-shadow:
+    0 0 10px 3px rgb(255 236 180 / 0.95),
+    0 0 36px 14px rgb(232 168 70 / 0.4),
+    0 0 90px 40px rgb(120 60 20 / 0.18);
+}
+
+body.is-lit .cursor {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    cursor: auto;
+  }
+
+  .veil,
+  .cursor {
+    display: none;
+  }
+}
